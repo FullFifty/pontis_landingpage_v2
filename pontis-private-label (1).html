@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pontis — Build Your Academy's Revenue Stream</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #EE3665;
+    --ink: #111111;
+    --mid: #444444;
+    --dim: #888888;
+    --border: #E5E5E5;
+    --bg: #FFFFFF;
+    --bg-soft: #F7F7F7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 56px; height: 68px;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-wordmark {
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    font-size: 1rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+  }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav ul a {
+    font-size: 0.78rem; font-weight: 400; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--dim); text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--ink); }
+  .nav-cta { background: var(--red) !important; color: #fff !important; padding: 10px 22px; border-radius: 2px; }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--red); color: #fff;
+    padding: 16px 36px; border-radius: 2px;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: opacity 0.2s; display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    padding: 16px 36px; border-radius: 2px;
+    font-size: 0.82rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid var(--border);
+    transition: border-color 0.2s; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: grid; grid-template-columns: 1fr 440px;
+    padding-top: 68px; border-bottom: 1px solid var(--border);
+  }
+  .hero-content {
+    padding: 80px 56px; display: flex; flex-direction: column;
+    justify-content: center; border-right: 1px solid var(--border);
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 28px;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--dim); }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: clamp(3.2rem, 5.5vw, 5.2rem); line-height: 0.93;
+    text-transform: uppercase; color: var(--ink); margin-bottom: 28px;
+  }
+  h1 em { font-style: normal; color: var(--red); }
+  .hero-sub {
+    font-size: 1.05rem; line-height: 1.7; color: var(--mid);
+    max-width: 500px; margin-bottom: 48px;
+  }
+  .hero-proof {
+    display: flex; gap: 48px; margin-bottom: 48px;
+    padding-top: 32px; border-top: 1px solid var(--border);
+  }
+  .proof-item { display: flex; flex-direction: column; gap: 4px; }
+  .proof-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800; font-size: 2.2rem; color: var(--ink); line-height: 1;
+  }
+  .proof-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+  .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* FORM */
+  .hero-form {
+    padding: 56px 40px; display: flex; flex-direction: column;
+    justify-content: center; background: var(--bg-soft);
+  }
+  .form-heading {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 1.5rem; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .form-sub { font-size: 0.82rem; color: var(--dim); margin-bottom: 28px; line-height: 1.5; }
+  .form-group { margin-bottom: 12px; }
+  .form-group label {
+    display: block; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%; background: #fff; border: 1px solid var(--border); border-radius: 2px;
+    padding: 11px 14px; color: var(--ink);
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+    outline: none; transition: border-color 0.2s; appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--ink); }
+  .form-group input::placeholder { color: #ccc; }
+  .form-submit {
+    width: 100%; background: var(--red); color: #fff; border: none;
+    padding: 15px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    border-radius: 2px; cursor: pointer; margin-top: 6px; transition: opacity 0.2s;
+  }
+  .form-submit:hover { opacity: 0.88; }
+  .form-trust { font-size: 0.68rem; color: var(--dim); text-align: center; margin-top: 12px; line-height: 1.5; }
+  .form-success { display: none; text-align: center; padding: 24px 0; }
+  .success-check {
+    width: 48px; height: 48px; border: 1.5px solid var(--ink); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px; font-size: 1.1rem;
+  }
+  .success-title {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 1.3rem; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .success-body { font-size: 0.85rem; color: var(--dim); line-height: 1.6; }
+
+  /* SECTIONS */
+  .section { padding: 100px 56px; }
+  .section-soft { background: var(--bg-soft); }
+  .section + .section, .section + .section-soft, .section-soft + .section { border-top: 1px solid var(--border); }
+
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 20px;
+  }
+  .section-tag::before { content: ''; width: 20px; height: 1px; background: var(--dim); }
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: clamp(2.2rem, 3.5vw, 3.2rem); text-transform: uppercase;
+    line-height: 0.93; margin-bottom: 16px;
+  }
+  h2 em { font-style: normal; color: var(--red); }
+  .section-intro { font-size: 1rem; color: var(--mid); line-height: 1.7; max-width: 600px; margin-bottom: 64px; }
+
+  /* SHIFT */
+  .shift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .shift-col { padding: 48px 40px; border: 1px solid var(--border); }
+  .shift-col.after { background: var(--bg-soft); }
+  .col-label {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 28px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  }
+  .col-label.before-l { color: var(--dim); }
+  .col-label.after-l { color: var(--ink); }
+  .belief-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .belief-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.9rem; line-height: 1.5; }
+  .belief-list.bl li { color: var(--dim); }
+  .belief-list.al li { color: var(--ink); }
+  .bi {
+    width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6rem; font-weight: 700; margin-top: 2px;
+  }
+  .bi-x { background: #F0F0F0; color: var(--dim); }
+  .bi-c { background: var(--ink); color: #fff; }
+
+  /* DEMAND GRID */
+  .demand-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+  }
+  .demand-card { background: var(--bg); padding: 32px 28px; transition: background 0.15s; }
+  .demand-card:hover { background: #F0F0F0; }
+  .demand-icon {
+    width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1rem; margin-bottom: 16px;
+  }
+  .demand-card h4 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem;
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+  }
+  .demand-card p { font-size: 0.83rem; color: var(--mid); line-height: 1.55; }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; }
+  .step {
+    display: grid; grid-template-columns: 64px 1fr auto;
+    align-items: start; padding: 36px 0;
+    border-top: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: 1px solid var(--border); }
+  .step-num {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 3rem; color: var(--border); line-height: 1;
+  }
+  .step-body { padding-right: 40px; }
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem;
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px;
+  }
+  .step-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.65; }
+  .step-badge {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--dim); border: 1px solid var(--border); padding: 5px 12px;
+    border-radius: 2px; white-space: nowrap; margin-top: 4px;
+  }
+
+  /* ECONOMICS */
+  .econ-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .sell-table { width: 100%; border-collapse: collapse; }
+  .sell-table thead tr { background: var(--bg-soft); }
+  .sell-table th {
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--dim); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .sell-table td { padding: 14px 16px; font-size: 0.88rem; border-bottom: 1px solid var(--border); }
+  .sell-table tr:last-child td { border-bottom: none; }
+  .sell-table tr.hl td { background: var(--bg-soft); font-weight: 500; }
+  .pill {
+    display: inline-block; font-size: 0.65rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px;
+  }
+  .p-n { background: #F0F0F0; color: var(--dim); }
+  .p-g { background: #EDFAF0; color: #1A8A3A; }
+  .p-s { background: #D6F5D6; color: #156B2A; }
+  .p-b { background: var(--ink); color: #fff; }
+
+  .econ-right { display: flex; flex-direction: column; gap: 16px; }
+  .econ-stat {
+    padding: 28px 32px; background: var(--bg); border: 1px solid var(--border); border-radius: 2px;
+  }
+  .econ-stat-num {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900;
+    font-size: 3.2rem; line-height: 1; color: var(--ink); margin-bottom: 6px;
+  }
+  .econ-stat-label { font-size: 0.82rem; color: var(--mid); line-height: 1.55; }
+
+  /* WHO */
+  .who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; }
+  .who-card { padding: 36px 28px; border: 1px solid var(--border); transition: border-color 0.2s; }
+  .who-card:hover { border-color: var(--ink); }
+  .who-card.dim-card { opacity: 0.5; }
+  .who-label {
+    font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--dim); margin-bottom: 10px;
+  }
+  .who-card h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .who-card p { font-size: 0.83rem; color: var(--mid); line-height: 1.6; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; max-width: 760px; }
+  .faq-item { border-top: 1px solid var(--border); overflow: hidden; }
+  .faq-item:last-child { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; background: none; border: none; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 0; text-align: left;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 500; color: var(--ink);
+  }
+  .faq-icon {
+    width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; flex-shrink: 0; transition: transform 0.25s; color: var(--dim);
+  }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s;
+    font-size: 0.88rem; color: var(--mid); line-height: 1.7;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 22px; }
+
+  /* FINAL CTA */
+  .final-cta { background: var(--ink); color: #fff; text-align: center; padding: 100px 56px; }
+  .final-cta .section-tag { color: rgba(255,255,255,0.35); }
+  .final-cta .section-tag::before { background: rgba(255,255,255,0.35); }
+  .final-cta h2 { color: #fff; margin: 0 auto 16px; max-width: 600px; }
+  .final-cta h2 em { color: var(--red); }
+  .final-cta .section-intro { color: rgba(255,255,255,0.5); margin: 0 auto 40px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 32px 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-wordmark {
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+  }
+  .footer-copy { font-size: 0.72rem; color: var(--dim); }
+
+  /* REVEAL */
+  [data-reveal] { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  [data-reveal].visible { opacity: 1; transform: translateY(0); }
+  [data-reveal-delay="1"] { transition-delay: 0.1s; }
+  [data-reveal-delay="2"] { transition-delay: 0.2s; }
+  [data-reveal-delay="3"] { transition-delay: 0.3s; }
+
+  /* MOBILE */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 22px; height: 1.5px; background: var(--ink); display: block; }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 24px; }
+    nav ul { display: none; }
+    nav ul.open {
+      display: flex; flex-direction: column; position: absolute; top: 68px;
+      left: 0; right: 0; background: #fff; padding: 20px 24px;
+      border-bottom: 1px solid var(--border); gap: 16px;
+    }
+    .hamburger { display: flex; }
+    .nav-cta { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-content { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-proof { gap: 28px; }
+    .hero-form { padding: 40px 24px; }
+    .section, .final-cta { padding: 60px 24px; }
+    .section-soft { padding: 60px 24px; }
+    .shift-grid, .econ-layout, .who-grid { grid-template-columns: 1fr; }
+    .demand-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 48px 1fr; }
+    .step-badge { display: none; }
+    footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .two-col { grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="nav-wordmark">Pontis</a>
+  <ul id="nav-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#economics">The Numbers</a></li>
+    <li><a href="#who">Is It For Me?</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#get-started" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-content">
+    <div class="eyebrow" data-reveal>Private Label for BJJ Academies</div>
+    <h1 data-reveal data-reveal-delay="1">
+      Your gear.<br>Your brand.<br><em>Your revenue.</em>
+    </h1>
+    <p class="hero-sub" data-reveal data-reveal-delay="2">
+      Most academy owners treat gear as an expense. Pontis helps you turn it into a revenue stream — with custom-branded gis and equipment we design, produce, and help you sell. We handle everything from factory to floor. You just need your logo.
+    </p>
+    <div class="hero-proof" data-reveal data-reveal-delay="2">
+      <div class="proof-item"><span class="proof-num">50%</span><span class="proof-label">Break-even point</span></div>
+      <div class="proof-item"><span class="proof-num">70%+</span><span class="proof-label">Avg sell-through</span></div>
+      <div class="proof-item"><span class="proof-num">3</span><span class="proof-label">Drops to scale</span></div>
+    </div>
+    <div class="hero-ctas" data-reveal data-reveal-delay="3">
+      <a href="#get-started" class="btn-primary">Apply for the Program</a>
+      <a href="#how-it-works" class="btn-ghost">See How It Works</a>
+    </div>
+  </div>
+
+  <div class="hero-form" id="get-started">
+    <div class="form-heading">See If You Qualify</div>
+    <p class="form-sub">60 seconds. No commitment. We'll respond within 48 hours.</p>
+    <form id="lead-form">
+      <div class="form-group">
+        <label>Academy Name</label>
+        <input type="text" placeholder="e.g. Triangle BJJ" required>
+      </div>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Head Instructor / Owner" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="you@youracademy.com" required>
+      </div>
+      <div class="form-group">
+        <label>Active Members</label>
+        <select required>
+          <option value="" disabled selected>Select your range</option>
+          <option>Under 50</option>
+          <option>50 – 100</option>
+          <option>100 – 150</option>
+          <option>150+</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Current Gear Situation</label>
+        <select>
+          <option value="" disabled selected>Select one</option>
+          <option>No branded gear yet</option>
+          <option>Generic / unbranded gear</option>
+          <option>Existing brand, want to upgrade</option>
+          <option>With a competitor, want to switch</option>
+        </select>
+      </div>
+      <button type="submit" class="form-submit">Submit Application →</button>
+      <p class="form-trust">No commitment · We qualify every account · 48hr response</p>
+    </form>
+    <div class="form-success" id="form-success">
+      <div class="success-check">✓</div>
+      <div class="success-title">Application Received</div>
+      <p class="success-body">We'll review your details and be in touch within 48 hours to walk you through the program.</p>
+    </div>
+  </div>
+</div>
+
+<!-- THE SHIFT -->
+<div class="section" id="shift">
+  <div class="section-tag" data-reveal>The Big Shift</div>
+  <h2 data-reveal data-reveal-delay="1">What most owners get <em>wrong</em><br>about gear.</h2>
+  <p class="section-intro" data-reveal data-reveal-delay="2">If you've thought "selling gear seems risky" — you're not alone. Most academy owners share the same fears. Here's why the math actually works in your favor.</p>
+  <div class="shift-grid">
+    <div class="shift-col" data-reveal>
+      <div class="col-label before-l">What most owners assume</div>
+      <ul class="belief-list bl">
+        <li><div class="bi bi-x">✗</div><span>You have to sell 100% of inventory to break even</span></li>
+        <li><div class="bi bi-x">✗</div><span>Unsold gear means you're stuck with a loss</span></li>
+        <li><div class="bi bi-x">✗</div><span>Custom gear is complicated and time-consuming</span></li>
+        <li><div class="bi bi-x">✗</div><span>You need a big upfront investment to get started</span></li>
+        <li><div class="bi bi-x">✗</div><span>Your students don't buy much gear anyway</span></li>
+      </ul>
+    </div>
+    <div class="shift-col after" data-reveal data-reveal-delay="1">
+      <div class="col-label after-l">The reality</div>
+      <ul class="belief-list al">
+        <li><div class="bi bi-c">✓</div><span>Selling just 50% covers your entire cost. The rest is profit.</span></li>
+        <li><div class="bi bi-c">✓</div><span>Pre-orders let you collect money before you place the order</span></li>
+        <li><div class="bi bi-c">✓</div><span>Pontis handles tech packs, factory, and production — your effort is minimal</span></li>
+        <li><div class="bi bi-c">✓</div><span>Pre-order campaigns fund the purchase before you spend a dollar</span></li>
+        <li><div class="bi bi-c">✓</div><span>New students, promotions, tournaments, and belt tests all drive constant demand</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- BUILT-IN DEMAND -->
+<div class="section section-soft" id="demand">
+  <div class="section-tag" data-reveal>Built-In Demand</div>
+  <h2 data-reveal data-reveal-delay="1">Your students already<br><em>need</em> this gear.</h2>
+  <p class="section-intro" data-reveal data-reveal-delay="2">Academy gear isn't like retail clothing. You already have customers walking through your door every day. These demand triggers make sell-through far more predictable than most people expect.</p>
+  <div class="demand-grid" data-reveal data-reveal-delay="2">
+    <div class="demand-card">
+      <div class="demand-icon">🥋</div>
+      <h4>New Students</h4>
+      <p>Every new student needs a gi. If you stock your brand, they buy your brand — not a random one from Amazon.</p>
+    </div>
+    <div class="demand-card">
+      <div class="demand-icon">🏆</div>
+      <h4>Tournaments</h4>
+      <p>Competition season creates strong demand for team-branded gear. Students want to represent on the mat.</p>
+    </div>
+    <div class="demand-card">
+      <div class="demand-icon">🎽</div>
+      <h4>Belt Promotions</h4>
+      <p>Earning a new belt is a milestone. A fresh gi for a fresh rank is a natural, high-emotion purchase trigger.</p>
+    </div>
+    <div class="demand-card">
+      <div class="demand-icon">📅</div>
+      <h4>Seasonal Drops</h4>
+      <p>Limited drops create urgency and collector behavior. Students who miss one look forward to the next.</p>
+    </div>
+    <div class="demand-card">
+      <div class="demand-icon">🔄</div>
+      <h4>Replacement Purchases</h4>
+      <p>High-volume practitioners who train daily wear out gear fast. Your most dedicated students are repeat buyers.</p>
+    </div>
+    <div class="demand-card">
+      <div class="demand-icon">🌟</div>
+      <h4>Instructor Influence</h4>
+      <p>What you wear on the mat, your students notice. Instructor adoption drives team-wide adoption naturally.</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section" id="how-it-works">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;margin-bottom:64px;" class="two-col">
+    <div>
+      <div class="section-tag" data-reveal>The Process</div>
+      <h2 data-reveal data-reveal-delay="1">From application<br>to <em>delivered gear</em> —<br>step by step.</h2>
+    </div>
+    <p class="section-intro" style="margin-bottom:0" data-reveal data-reveal-delay="2">We designed this for academy owners running a gym, not managing a supply chain. Your time investment is minimal. Ours is significant. That's the deal.</p>
+  </div>
+  <div class="steps">
+    <div class="step" data-reveal>
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <div class="step-title">Qualification Call</div>
+        <p class="step-desc">We start with a quick call to learn about your academy — size, goals, current gear setup, timeline. We're selective about who we work with, and we'll tell you honestly if the timing isn't right. If you're a fit, we move fast.</p>
+      </div>
+      <span class="step-badge">~30 min</span>
+    </div>
+    <div class="step" data-reveal>
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <div class="step-title">Design Session</div>
+        <p class="step-desc">You send us your logo and a few design references. Our team builds the full tech pack — colorways, placements, construction specs. You approve the design. We handle all factory communication. You don't need to know anything about manufacturing.</p>
+      </div>
+      <span class="step-badge">2–3 weeks</span>
+    </div>
+    <div class="step" data-reveal>
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <div class="step-title">Pre-Order Campaign</div>
+        <p class="step-desc">Before anything goes into production, we help you run a pre-order with your community. We provide presale flyer templates, social media assets, and launch strategy. This tells you exactly how many to order — and often funds the purchase before you spend a dollar.</p>
+      </div>
+      <span class="step-badge">Optional but powerful</span>
+    </div>
+    <div class="step" data-reveal>
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <div class="step-title">Production</div>
+        <p class="step-desc">Once you approve the purchase order and submit your deposit, production begins. We track your order with the factory and keep you updated throughout. Standard lead time is 90–120 days. Nothing ships without your final sign-off.</p>
+      </div>
+      <span class="step-badge">90–120 days</span>
+    </div>
+    <div class="step" data-reveal>
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <div class="step-title">Launch &amp; Sell-Through Support</div>
+        <p class="step-desc">When your gear arrives, we don't disappear. We help you set up your Shopify store, run email campaigns, and plan your drop launch. We track sell-through rate together — and when you hit 70%+, we start planning your next drop.</p>
+      </div>
+      <span class="step-badge">Ongoing</span>
+    </div>
+    <div class="step" data-reveal>
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <div class="step-title">Repeat &amp; Scale</div>
+        <p class="step-desc">After 2–3 drops, most academies shift from "running a gear order" to "operating an apparel program." That means predictable non-tuition revenue, stronger brand identity, and a reason for students to stay engaged between sessions.</p>
+      </div>
+      <span class="step-badge">The goal</span>
+    </div>
+  </div>
+</div>
+
+<!-- ECONOMICS -->
+<div class="section section-soft" id="economics">
+  <div class="section-tag" data-reveal>The Numbers</div>
+  <h2 data-reveal data-reveal-delay="1">Sell half. Break even.<br><em>Everything else is profit.</em></h2>
+  <p class="section-intro" data-reveal data-reveal-delay="2">Here's why the risk is lower than you think. The break-even threshold is just 50% sell-through — meaning you only need to sell half your inventory to recover your investment. Most academies land well above that.</p>
+  <div class="econ-layout">
+    <div data-reveal>
+      <table class="sell-table">
+        <thead>
+          <tr>
+            <th>Sell-Through Rate</th>
+            <th>Outcome</th>
+            <th>What It Means</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>50%</td>
+            <td><span class="pill p-n">Break Even</span></td>
+            <td style="color:var(--dim);font-size:0.82rem">Full cost recovered</td>
+          </tr>
+          <tr>
+            <td>50–75%</td>
+            <td><span class="pill p-g">Profit Begins</span></td>
+            <td style="font-size:0.82rem">Margin positive</td>
+          </tr>
+          <tr class="hl">
+            <td>75–90%</td>
+            <td><span class="pill p-s">Strong Revenue</span></td>
+            <td style="font-size:0.82rem">Fund your next drop</td>
+          </tr>
+          <tr class="hl">
+            <td>90–100%</td>
+            <td><span class="pill p-b">Growth Cycle</span></td>
+            <td style="font-size:0.82rem">Self-funding program</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.78rem;color:var(--dim);margin-top:16px;line-height:1.6;">Pontis actively works to increase your sell-through — not just produce your order. We help with presale strategy, launch storytelling, Shopify setup, and email campaigns. Your success is our pipeline.</p>
+    </div>
+    <div class="econ-right" data-reveal data-reveal-delay="1">
+      <div class="econ-stat">
+        <div class="econ-stat-num">45%</div>
+        <div class="econ-stat-label">Margin we apply to all product — your retail price gives your academy healthy profit on every unit sold.</div>
+      </div>
+      <div class="econ-stat">
+        <div class="econ-stat-num">3×</div>
+        <div class="econ-stat-label">Drops is when academies shift from "ordering gear" to "running a revenue program" — with predictable cashflow and compounding brand equity.</div>
+      </div>
+      <div class="econ-stat">
+        <div class="econ-stat-num">$0</div>
+        <div class="econ-stat-label">Upfront required if you run a pre-order campaign. Collect payment from your students before you place the production order.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHO IT'S FOR -->
+<div class="section" id="who">
+  <div class="section-tag" data-reveal>Is This For Me?</div>
+  <h2 data-reveal data-reveal-delay="1">We work with <em>growth-minded</em><br>academy owners.</h2>
+  <p class="section-intro" data-reveal data-reveal-delay="2">We're selective — not to be exclusive, but because the program works best in the right context. Here's an honest look at who's a fit.</p>
+  <div class="who-grid">
+    <div class="who-card" data-reveal>
+      <div class="who-label">Best Fit</div>
+      <h3>Established Academies</h3>
+      <p>50+ active members, operating for at least a year, ready to build a second revenue channel alongside tuition.</p>
+    </div>
+    <div class="who-card" data-reveal data-reveal-delay="1">
+      <div class="who-label">Great Fit</div>
+      <h3>Brand-Conscious Owners</h3>
+      <p>You care how your academy looks on the mat. You want students wearing something they're proud of — not generic distributor gear.</p>
+    </div>
+    <div class="who-card" data-reveal data-reveal-delay="2">
+      <div class="who-label">Good Fit</div>
+      <h3>New Academies (With a Plan)</h3>
+      <p>Opening with a respected instructor? Repositioning in your market? We have a path for academies building brand identity from day one.</p>
+    </div>
+    <div class="who-card" data-reveal data-reveal-delay="1">
+      <div class="who-label">Also a Fit</div>
+      <h3>Switching Suppliers</h3>
+      <p>Already running gear through another supplier but unhappy with quality, margins, or service? Bring us your last order details. We'll show you the difference.</p>
+    </div>
+    <div class="who-card" data-reveal data-reveal-delay="2">
+      <div class="who-label">Potential Fit</div>
+      <h3>Growing Fast</h3>
+      <p>Under 50 members but adding students quickly? We'll tell you when the timing is right. We'd rather wait and do it properly than rush a program that won't perform.</p>
+    </div>
+    <div class="who-card dim-card" data-reveal data-reveal-delay="3">
+      <div class="who-label">Not a Fit (Yet)</div>
+      <h3>Too Early</h3>
+      <p>Brand new, fewer than 30 members, or not yet financially stable. We'll be straight with you — this should work for your academy, not against it.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section section-soft" id="faq">
+  <div class="section-tag" data-reveal>Common Questions</div>
+  <h2 data-reveal data-reveal-delay="1">Questions we get<br><em>all the time.</em></h2>
+  <p class="section-intro" data-reveal data-reveal-delay="2">New to private label? Good. Here are the questions we hear from every first-time academy owner.</p>
+  <div class="faq-list" data-reveal data-reveal-delay="2">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What's the minimum order quantity? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Minimums vary by product type, but we work with you to find a quantity that fits your academy size and risk tolerance. A pre-order campaign before you commit is the best way to know exactly how many to order — and often eliminates the minimum concern entirely.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How long does the whole process take? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Design and approval takes 2–3 weeks. Production lead time is 90–120 days from confirmed purchase order. Total timeline from first call to receiving goods is usually 4–5 months. We recommend starting early and using the wait time to build pre-order demand with your community.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">I know nothing about designing gear. Is that a problem? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Not at all. We need your logo in vector format and a general sense of your aesthetic — that's it. Our team handles all technical design work: colorways, construction specs, placement, and the tech pack. You approve; we execute. Most owners are surprised by how little they need to do.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What if I can't sell all the inventory? <span class="faq-icon">+</span></button>
+      <div class="faq-a">This is the most common fear — and the least likely outcome. Your break-even is 50% sell-through. With our launch support, most academies land at 70–85%. We actively help you sell: presale flyers, email campaigns, Shopify setup, and drop storytelling. We don't succeed unless you do.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Do I need a Shopify store to get started? <span class="faq-icon">+</span></button>
+      <div class="faq-a">No. Most of your initial sales will happen in-person at the academy. As your program grows, we'll help you set up an online store to capture purchases from students who want to buy between sessions. It's part of the scale phase — not a requirement on day one.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What does Pontis do vs. what do I do? <span class="faq-icon">+</span></button>
+      <div class="faq-a">Pontis handles: factory sourcing, tech pack creation, design execution, production management, quality control, shipping coordination, and sell-through support tools. You handle: approving designs and selling to your students. That's the split. We do the heavy lifting so you can stay focused on your mat.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta" id="apply">
+  <div class="section-tag" style="justify-content:center;margin-bottom:24px" data-reveal>Get Started</div>
+  <h2 data-reveal data-reveal-delay="1">Ready to build your<br><em>revenue stream?</em></h2>
+  <p class="section-intro" style="text-align:center;margin:0 auto 40px;" data-reveal data-reveal-delay="2">Apply in 60 seconds. We review every application and respond within 48 hours. No commitment required to start the conversation.</p>
+  <div data-reveal data-reveal-delay="3">
+    <a href="#get-started" class="btn-primary">Apply for the Program →</a>
+  </div>
+</div>
+
+<footer>
+  <a href="#top" class="footer-wordmark">Pontis</a>
+  <span class="footer-copy">Private Label for BJJ Academies · pontisbjj.com</span>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+
+function toggleMenu() { document.getElementById('nav-links').classList.toggle('open'); }
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const t = document.querySelector(this.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    document.getElementById('nav-links').classList.remove('open');
+  });
+});
+
+document.getElementById('lead-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+});
+
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>
